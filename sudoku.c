@@ -153,46 +153,37 @@ void level(int dif, int grid[SIZE][SIZE]) {
 }
 
 // Função para remover numeros
-void removerNumeros(int grid[SIZE][SIZE], char continuar) {
-    int linha, coluna, num;
-    char continuarAlterando;
+int alterarNumeros(int grid[SIZE][SIZE], char alterarNum) {
+    int linha, coluna, num, i, j;
 
-    if(continuar == 's' || continuar == 'S'){
-        do{
-            exibirGrid(grid);
+                exibirGrid(grid);
 
-            printf("Digite a linha (0-8): ");
-            scanf("%d", &linha);
-            printf("Digite a coluna (0-8): ");
-            scanf("%d", &coluna);
-            printf("Digite o número (1-9): ");
-            scanf("%d", &num);
+                printf("Digite a linha (0-8): ");
+                scanf("%d", &linha);
+                printf("Digite a coluna (0-8): ");
+                scanf("%d", &coluna);
+                printf("Digite o número (1-9): ");
+                scanf("%d", &num);
 
-            if (linha < 0 || linha >= SIZE || coluna < 0 || coluna >= SIZE || num < 1 || num > SIZE) {
-                printf("Entrada inválida. Tente novamente.\n");
-                continue;
-            }else{
-                for(int i = 0; i<SIZE; i++){
-                    for(int j= 0; j <SIZE; j++){
-                        if(grid[i][j] == num){
-                            grid[i][j] = num;
+                if (linha < 0 || linha >= SIZE || coluna < 0 || coluna >= SIZE || num < 1 || num > SIZE) {
+                    return printf("Entrada inválida. Tente novamente.\n");
+                    
+                    }else{
+                        for(i = 0; i<SIZE; i++){
+                            for( j= 0; j <SIZE; j++){
+                                if(grid[i][j] == num){
+                                    grid[i][j] = num;
+                                }
+                            }
+                            exibirGrid(grid);
                         }
-                    }
-                }
-
             }
-
-            printf("Deseja fazer mais alteracoes? (s/n): ");
-            scanf("%c", &continuarAlterando);
-
-        }while (continuarAlterando == 's' || continuarAlterando == 'S');
-    }
 
 }
 // Função para permitir que o usuário jogue
 void jogar(int grid[SIZE][SIZE]) {
     int linha, coluna, num;
-    char continuar, continuarAlterando;
+    char continuarJogando, alterarNum;
     
     do {
         exibirGrid(grid);
@@ -218,20 +209,33 @@ void jogar(int grid[SIZE][SIZE]) {
         } else {
             printf("A célula já está preenchida. Tente novamente.\n");
         }
+        exibirGrid(grid);
 
-        printf("Deseja continuar? (s/n): ");
-        scanf(" %c", &continuar);
 
-    } while (continuar == 's' || continuar == 'S');
+            do{
+                printf("Deseja fazer alguma alteracao? (s/n): \n");
+                scanf(" %c", &alterarNum);
 
-    printf("Deseja fazer alguma alteracao? ");
-    scanf("%c", &continuarAlterando);
+                if(alterarNum != 's' &&  alterarNum != 'S' && alterarNum != 'n' && alterarNum != 'N'){
+                printf("Entrada inválida. Tente novamente.\n");
+                continue;
+            }
 
-    removerNumeros(grid, continuarAlterando);
+                alterarNumeros(grid, alterarNum);
+            
+            } while(alterarNum == 's' || alterarNum == 'S');
+            
 
-    printf("Jogo encerrado.\n");
-}
+            printf("Deseja continuar jogando? (s/n) \n");
+            scanf(" %c", &continuarJogando);
+            if(continuarJogando != 's' &&  continuarJogando != 'S' && continuarJogando != 'n' && continuarJogando != 'N'){
+                printf("Entrada inválida. Tente novamente.\n");
+                continue;
+            }
 
+    } while (continuarJogando == 's' || continuarJogando == 'S');
+        
+     }
 
 
 // Função para exibir o menu e obter a escolha do usuário

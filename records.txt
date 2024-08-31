@@ -8,3 +8,10 @@ duda 221
 soveroy 248
 duda 250
 duda 127
+q 180
+esoveroy 297
+esoveroy 297
+esoveroy 236
+esoveroy 178
+esoveroy 136
+esvo 181
