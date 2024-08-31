@@ -12,7 +12,7 @@ void exibirGrid(int grid[SIZE][SIZE]) {
     printf("\n");
     for (int i = 0; i < SIZE; i++) {
         if (i % SUBGRIDSIZE == 0 && i != 0) {
-            printf("- - - - - - - - - - - - - - - - -\n");
+            printf("- - - - - - - - - - - -\n");
         }
         for (int j = 0; j < SIZE; j++) {
             if (j % SUBGRIDSIZE == 0 && j != 0) {
@@ -152,10 +152,47 @@ void level(int dif, int grid[SIZE][SIZE]) {
     }
 }
 
+// Função para remover numeros
+void removerNumeros(int grid[SIZE][SIZE], char continuar) {
+    int linha, coluna, num;
+    char continuarAlterando;
+
+    if(continuar == 's' || continuar == 'S'){
+        do{
+            exibirGrid(grid);
+
+            printf("Digite a linha (0-8): ");
+            scanf("%d", &linha);
+            printf("Digite a coluna (0-8): ");
+            scanf("%d", &coluna);
+            printf("Digite o número (1-9): ");
+            scanf("%d", &num);
+
+            if (linha < 0 || linha >= SIZE || coluna < 0 || coluna >= SIZE || num < 1 || num > SIZE) {
+                printf("Entrada inválida. Tente novamente.\n");
+                continue;
+            }else{
+                for(int i = 0; i<SIZE; i++){
+                    for(int j= 0; j <SIZE; j++){
+                        if(grid[i][j] == num){
+                            grid[i][j] = num;
+                        }
+                    }
+                }
+
+            }
+
+            printf("Deseja fazer mais alteracoes? (s/n): ");
+            scanf("%c", &continuarAlterando);
+
+        }while (continuarAlterando == 's' || continuarAlterando == 'S');
+    }
+
+}
 // Função para permitir que o usuário jogue
 void jogar(int grid[SIZE][SIZE]) {
     int linha, coluna, num;
-    char continuar;
+    char continuar, continuarAlterando;
     
     do {
         exibirGrid(grid);
@@ -187,18 +224,27 @@ void jogar(int grid[SIZE][SIZE]) {
 
     } while (continuar == 's' || continuar == 'S');
 
+    printf("Deseja fazer alguma alteracao? ");
+    scanf("%c", &continuarAlterando);
+
+    removerNumeros(grid, continuarAlterando);
+
     printf("Jogo encerrado.\n");
 }
+
+
 
 // Função para exibir o menu e obter a escolha do usuário
 int menu(char *nome) {
     int escolha = 0;
 
-    printf("*\n");
+    printf("***************************************\n");
     printf("*                                     *\n");
     printf("*           Escreva seu nick          *\n");
     printf("*                                     *\n");
-    scanf("%s", nome);
+    printf("***************************************\n");
+    printf("\n-> ");
+    scanf(" %s", nome);
     printf("\n*\n\n\n\n");
 
     printf("******** Seja bem vindo %s ********\n", nome);
@@ -210,7 +256,7 @@ int menu(char *nome) {
     printf("*     3 Ranking                       *\n");
     printf("*     4 Sair                          *\n");
     printf("*                                     *\n");
-    printf("*                                     *\n");
+    printf("***************************************\n");
     printf("*\n\n");
     scanf("%d", &escolha);
 
@@ -283,7 +329,9 @@ int main() {
         } else if (opcaoMenu == 3) {
             mostrarRanking();
         } else if (opcaoMenu == 4) {
+            printf("***************************************\n");
             printf("*            OBRIGADO POR JOGAR       *\n");
+            printf("***************************************\n");
         } else {
             printf("*             ERRO 404                *\n\n");
         }
