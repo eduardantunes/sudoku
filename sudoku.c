@@ -11,21 +11,24 @@
     void exibirGrid(int grid[SIZE][SIZE])
     {
         printf("\n");
+        printf(" -------------------------------\n");
+                printf(" *           SUDOKU            *\n");
+                printf(" -------------------------------\n");
         for (int i = 0; i < SIZE; i++)
         {
-            if (i % SUBGRIDSIZE == 0 && i != 0)
-            {
-                printf("- - - - - - - - - - - -\n");
+            if (i % SUBGRIDSIZE == 0 && i != 0){   
+
+                printf(" -------------------------------\n");
             }
             for (int j = 0; j < SIZE; j++)
             {
                 if (j % SUBGRIDSIZE == 0 && j != 0)
                 {
-                    printf("| ");
+                    printf(" | ");
                 }
                 if (grid[i][j] == EMPTY)
                 {
-                    printf(". ");
+                    printf(" . ");
                 }
                 else
                 {
@@ -141,10 +144,16 @@
     int dificuldade()
     {
         int dif;
-        printf("Escolha a dificuldade:\n");
-        printf("1. Fácil\n");
-        printf("2. Médio\n");
-        printf("3. Difícil\n");
+        printf(" ----------------------------\n");
+        printf(" *  Escolha a dificuldade:  *\n");
+        printf(" ----------------------------\n");
+        printf(" *                          *\n");
+        printf(" *        1. Facil          *\n");
+        printf(" *        2. Medio          *\n");
+        printf(" *        3. Dificil        *\n");
+        printf(" *                          *\n");
+        printf(" ----------------------------\n\n");
+        printf("    -> ");
         scanf("%d", &dif);
         return dif;
     }
@@ -314,26 +323,17 @@
     {
         int escolha = 0;
 
-        printf("***************************************\n");
-        printf("*                                     *\n");
-        printf("*           Escreva seu nick          *\n");
-        printf("*                                     *\n");
-        printf("***************************************\n");
-        printf("\n-> ");
-        scanf(" %s", nome);
-        printf("\n*\n\n\n\n");
-
-        printf("******** Seja bem vindo %s ********\n", nome);
-        printf("*                                     *\n");
-        printf("********* Escolha o modo de jogo ******\n");
-        printf("*                                     *\n");
-        printf("*     1 Novo jogo                     *\n");
-        printf("*     2 Escolher jogo                 *\n");
-        printf("*     3 Ranking                       *\n");
-        printf("*     4 Sair                          *\n");
-        printf("*                                     *\n");
-        printf("***************************************\n");
-        printf("*\n\n");
+        printf("\n -> Ola %s! \n\n", nome);
+        printf(" --------------------------------------\n");
+        printf(" --------------- Menu -----------------\n");
+        printf(" *                                    *\n");
+        printf(" *       1. Novo jogo                 *\n");
+        printf(" *       2. Escolher jogo             *\n");
+        printf(" *       3. Ranking                   *\n");
+        printf(" *       4. Sair                      *\n");
+        printf(" *                                    *\n");
+        printf(" --------------------------------------\n\n");
+        printf(" -> ");
         scanf("%d", &escolha);
         printf("\n");
 
@@ -395,11 +395,28 @@
     {
         int dif = 0, opcaoMenu = 0;
         int grid[SIZE][SIZE];
-        char nome[100];
+        FILE *nome;
+        char nick[25];
 
+        nome = fopen("nome.txt", "w");
+        if (nome == NULL) { // Verifica se o arquivo foi aberto com sucesso
+        printf("Erro ao abrir o arquivo.\n");
+        exit(1);
+        }  
+        printf("\n"); 
+         printf(" ---------------------------------------\n");
+        printf(" *                                     *\n");
+        printf(" *           Insira seu nick           *\n");
+        printf(" *                                     *\n");
+         printf(" ---------------------------------------\n");
+        printf("\n-> ");
+        scanf(" %s", &nick);
+        fprintf(nome, "%s", nick);
+        fclose(nome);
+        printf("\n");
         while (opcaoMenu != 4)
         {
-            opcaoMenu = menu(nome);
+            opcaoMenu = menu(nick);
 
             if (opcaoMenu == 1)
             {
@@ -409,7 +426,7 @@
                 jogar(grid);
                 int tempo = tempoJogo();
                 printf("Seu tempo: %d segundos\n", tempo);
-                records(nome, tempo);
+                records(nick, tempo);
             }
             else if (opcaoMenu == 2)
             {
@@ -421,13 +438,15 @@
             }
             else if (opcaoMenu == 4)
             {
-                printf("***************************************\n");
-                printf("*            OBRIGADO POR JOGAR       *\n");
-                printf("***************************************\n");
+                printf(" --------------------------------------\n");
+                printf("*          OBRIGADO POR JOGAR         *\n");
+                printf(" --------------------------------------\n");
             }
             else
-            {
-                printf("*             ERRO 404                *\n\n");
+            {   
+                printf(" --------------------------------------\n");
+                printf("*              ERRO 404               *\n\n");
+                printf(" --------------------------------------\n");
             }
         }
 
