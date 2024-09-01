@@ -16,3 +16,5 @@ esoveroy 178
 esoveroy 136
 esvo 181
 soveroy 277
+duda 115
+duda 52
