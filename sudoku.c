@@ -155,29 +155,43 @@ void level(int dif, int grid[SIZE][SIZE]) {
 // Função para remover numeros
 int alterarNumeros(int grid[SIZE][SIZE], char alterarNum) {
     int linha, coluna, num, i, j;
+    char continuarAlterando;
 
-                exibirGrid(grid);
-
-                printf("Digite a linha (0-8): ");
+        do{
+                printf("Digite a linha a ser alterada (0-8): ");
                 scanf("%d", &linha);
-                printf("Digite a coluna (0-8): ");
+                printf("Digite a coluna a ser alterado(0-8): ");
                 scanf("%d", &coluna);
-                printf("Digite o número (1-9): ");
+                printf("Digite o novo numero (1-9): ");
                 scanf("%d", &num);
 
                 if (linha < 0 || linha >= SIZE || coluna < 0 || coluna >= SIZE || num < 1 || num > SIZE) {
-                    return printf("Entrada inválida. Tente novamente.\n");
-                    
+                    return printf("Entrada inválida. \n");
                     }else{
                         for(i = 0; i<SIZE; i++){
                             for( j= 0; j <SIZE; j++){
-                                if(grid[i][j] == num){
+                                if(grid[i][j] == grid[linha][coluna]){
                                     grid[i][j] = num;
                                 }
                             }
-                            exibirGrid(grid);
                         }
-            }
+                        exibirGrid(grid);
+
+                        }
+
+                        do{
+                        printf("\nContinuar alterando? (s/n): ");
+                        scanf(" %c", &continuarAlterando);
+                        if(continuarAlterando == 'S' || continuarAlterando == 's' || continuarAlterando == 'n' || continuarAlterando == 'N'){
+                            break;
+                        }else {
+                            printf("\nCaracter invalido.");
+                            continue;
+                        }
+                        
+                        }while (continuarAlterando == 'S' || continuarAlterando == 's' || continuarAlterando == 'n' || continuarAlterando == 'N');
+                        
+            }while(continuarAlterando == 'S' || continuarAlterando == 's');
 
 }
 // Função para permitir que o usuário jogue
