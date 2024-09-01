@@ -326,7 +326,7 @@
 
         printf("\n -> Ola %s! \n\n", nome);
         printf(" --------------------------------------\n");
-        printf(" --------------- Menu -----------------\n");
+        printf(" ---------------- Menu ----------------\n");
         printf(" *                                    *\n");
         printf(" *       1. Novo jogo                 *\n");
         printf(" *       2. Escolher jogo             *\n");
@@ -397,11 +397,11 @@
         exit(1);
         }  
         printf("\n"); 
-        printf(" ---------------------------------------\n");
-        printf(" *                                     *\n");
-        printf(" *           Insira seu nick           *\n");
-        printf(" *                                     *\n");
-        printf(" ---------------------------------------\n");
+        printf(" -----------------------------------------\n");
+        printf(" *                                       *\n");
+        printf(" *            Insira seu nick            *\n");
+        printf(" *                                       *\n");
+        printf(" -----------------------------------------\n");
         printf("\n-> ");
         scanf(" %s", &nick);
         fprintf(nome, "%s", nick);
