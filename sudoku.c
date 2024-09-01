@@ -153,7 +153,7 @@
         printf(" *        3. Dificil        *\n");
         printf(" *                          *\n");
         printf(" ----------------------------\n\n");
-        printf("    -> ");
+        printf(" -> ");
         scanf("%d", &dif);
         return dif;
     }
@@ -167,7 +167,7 @@
         switch (dif)
         {
         case 1:                          // Fácil
-            numPistas = SIZE * SIZE / 2; // 50% preenchido
+            numPistas = SIZE * SIZE * 2 / 2; // 50% preenchido
             break;
         case 2:                              // Médio
             numPistas = SIZE * SIZE * 2 / 3; // ~67% preenchido
@@ -243,6 +243,7 @@
         char continuarJogando, alterarNum;
         
         exibirGrid(grid);
+
 
         do
         {
@@ -382,19 +383,11 @@
         fclose(file);
     }
 
-    // Função para lidar com o tempo do jogo atual (exemplo simplificado)
-    int tempoJogo()
-    {
-        // Simular o tempo de jogo (em segundos)
-        // No código real, você deve calcular o tempo real
-        int tempo = rand() % 300; // Tempo aleatório entre 0 e 299 segundos
-        return tempo;
-    }
-
     int main()
     {
         int dif = 0, opcaoMenu = 0;
         int grid[SIZE][SIZE];
+        srand(time(0)); // Inicializar o gerador de números aleatórios
         FILE *nome;
         char nick[25];
 
@@ -404,11 +397,11 @@
         exit(1);
         }  
         printf("\n"); 
-         printf(" ---------------------------------------\n");
+        printf(" ---------------------------------------\n");
         printf(" *                                     *\n");
         printf(" *           Insira seu nick           *\n");
         printf(" *                                     *\n");
-         printf(" ---------------------------------------\n");
+        printf(" ---------------------------------------\n");
         printf("\n-> ");
         scanf(" %s", &nick);
         fprintf(nome, "%s", nick);
@@ -422,9 +415,11 @@
             {
                 dif = dificuldade();
                 level(dif, grid);
-                srand(time(0)); // Inicializar o gerador de números aleatórios
+                clock_t start_time = clock();
                 jogar(grid);
-                int tempo = tempoJogo();
+                clock_t end_time = clock();
+
+                int tempo = (int)(end_time - start_time) / CLOCKS_PER_SEC;
                 printf("Seu tempo: %d segundos\n", tempo);
                 records(nick, tempo);
             }
