@@ -78,7 +78,7 @@
         return 1;
     }
 
-    // Função para resolver o Sudoku usando backtracking
+    // Função para verificar o numero usando backtracking
     int resolverSudoku(int grid[SIZE][SIZE])
     {
         int linha, coluna;
@@ -140,6 +140,10 @@
         }
     }
 
+    int verificarSudoku(int grid[SIZE][SIZE]){
+
+
+    }
     // Função para escolher a dificuldade
     int dificuldade()
     {
@@ -195,7 +199,7 @@
     }
 
     // Função para remover numeros
-    int alterarNumeros(int grid[SIZE][SIZE], char alterarNum)
+    int removerNumeros(int grid[SIZE][SIZE], char removerNum)
     {
         int linha, coluna, num, i, j;
         char continuarAlterando;
@@ -204,11 +208,8 @@
         {
             printf("Digite a linha a ser alterada (0-8): ");
             scanf("%d", &linha);
-            printf("Digite a coluna a ser alterado(0-8): ");
+            printf("Digite a coluna a ser alterada(0-8): ");
             scanf("%d", &coluna);
-            printf("Digite o novo numero (1-9): ");
-            scanf("%d", &num);
-            
             
             if (linha < 0 || linha >= SIZE || coluna < 0 || coluna >= SIZE || num < 1 || num > SIZE){
                 printf("Entrada inválida. Tente Novamente\n");
@@ -220,19 +221,18 @@
                 {
                     for (j = 0; j < SIZE; j++)
                     {
-                        if (grid[i][j] == grid[linha][coluna])
-                        {
-                            grid[i][j] = num;
+                       if (grid[linha][coluna] == linha || grid[linha][coluna] == coluna) {
+                        num = EMPTY;
                         }
                     }
                 }
-                exibirGrid(grid);
-            }
-            printf("Deseja continuar alterando? (s/n)");
-            scanf(" %c", &continuarAlterando);
-            if(continuarAlterando == 'n' || continuarAlterando == 'N'){
-                return 0;
-            }
+                    exibirGrid(grid);
+                }
+                printf("Deseja continuar removendo? (s/n)");
+                scanf(" %c", &continuarAlterando);
+                if(continuarAlterando == 'n' || continuarAlterando == 'N'){
+                    return 0;
+                }
         
         } while (continuarAlterando == 'S' || continuarAlterando == 's');
     }
@@ -240,7 +240,7 @@
     int jogar(int grid[SIZE][SIZE])
     {
         int linha, coluna, num;
-        char continuarJogando, alterarNum;
+        char continuarJogando, removerNum;
         
         exibirGrid(grid);
 
@@ -254,6 +254,7 @@
             printf("Digite o número (1-9): ");
             scanf("%d", &num);
 
+
             if (linha < 0 || linha >= SIZE || coluna < 0 || coluna >= SIZE || num < 1 || num > SIZE)
             {
                 printf("Entrada inválida. Tente novamente.\n");
@@ -262,50 +263,57 @@
 
             if (grid[linha][coluna] == EMPTY)
             {
-                if (podeColocar(grid, linha, coluna, num))
-                {
-                    grid[linha][coluna] = num;
-                    exibirGrid(grid);
-                }
-                else
-                {
-                    printf("\nNumero invalido para essa posicao. Tente novamente.\n");
-                    continue;
-                }
+                grid[linha][coluna] = num;
+                exibirGrid(grid);
             }
             else
             {
                 printf("\nA célula já está preenchida. Tente novamente.\n");
+                continue;
             }
 
             do
             {
-                printf("\nDeseja fazer alguma alteracao? (s/n): ");
-                scanf(" %c", &alterarNum);
+                printf("\nDeseja remover algum numero? (s/n): ");
+                scanf(" %c", &removerNum);
 
-                if (alterarNum == 's' || alterarNum == 'S')
+                if (removerNum == 's' || removerNum == 'S')
                 {
-                    alterarNumeros(grid, alterarNum);
+                    removerNumeros(grid, removerNum);
                     break;
                 }
-                if (alterarNum == 'n' || alterarNum == 'N')
+                if (removerNum == 'n' || removerNum == 'N')
                 {
                     break;
                 }
 
-            } while (alterarNum == 's' || alterarNum == 'S');
+            } while (removerNum == 's' || removerNum == 'S');
 
             do
             {
                 printf("\nDeseja continuar jogando? (s/n): ");
                 scanf(" %c", &continuarJogando);
-                if (continuarJogando == 's' || continuarJogando == 'S')
+                if (continuarJogando == 'n' || continuarJogando == 'N')
                 {
+                    char verificar;
+                    for(int i = 0; i < SIZE; i++){
+                        for(int j = 0; j < SIZE; j++){
+                            if(grid[linha][coluna] == EMPTY ){
+                                printf("aksdjkasd");
+                    }
+                        }
+                    }
+                    
+                    printf("Deseja verificar o sudoku? ");
+                    scanf(" %c", &verificar);
+                    if(verificar == 's' || verificar == 'S'){
+                        verificarSudoku(grid);
+                    }
                     break;
                 }
                 if (continuarJogando == 'n' || continuarJogando == 'N')
                 {
-                    //funcao
+                    
                     return 0;
                 }
                 else
