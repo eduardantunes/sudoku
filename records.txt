@@ -23,3 +23,8 @@ duda 222
 duda 206
 duda 171
 duda 15
+duda 41
+duda 91
+d 26
+duda 35
+duda 57

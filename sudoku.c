@@ -11,14 +11,14 @@
     void exibirGrid(int grid[SIZE][SIZE])
     {
         printf("\n");
-        printf(" -------------------------------\n");
+        printf(" --------------------------------\n");
                 printf(" *           SUDOKU            *\n");
-                printf(" -------------------------------\n");
+                printf(" --------------------------------\n");
         for (int i = 0; i < SIZE; i++)
         {
             if (i % SUBGRIDSIZE == 0 && i != 0){   
 
-                printf(" -------------------------------\n");
+                printf(" --------------------------------\n");
             }
             for (int j = 0; j < SIZE; j++)
             {
@@ -32,7 +32,7 @@
                 }
                 else
                 {
-                    printf("%d ", grid[i][j]);
+                    printf(" %d ", grid[i][j]);
                 }
             }
             printf("\n");
@@ -167,10 +167,10 @@
         switch (dif)
         {
         case 1:                          // Fácil
-            numPistas = SIZE * SIZE * 2 / 2; // 50% preenchido
+            numPistas = SIZE * SIZE * 2 / 3; // ~67% preenchido
             break;
         case 2:                              // Médio
-            numPistas = SIZE * SIZE * 2 / 3; // ~67% preenchido
+            numPistas = SIZE * SIZE * 2 / 2; // 50% preenchido
             break;
         case 3:                              // Difícil
             numPistas = SIZE * SIZE * 5 / 6; // ~83% preenchido
@@ -228,7 +228,7 @@
                 }
                 exibirGrid(grid);
             }
-            printf("Deseja continuar alterando? ");
+            printf("Deseja continuar alterando? (s/n)");
             scanf(" %c", &continuarAlterando);
             if(continuarAlterando == 'n' || continuarAlterando == 'N'){
                 return 0;
@@ -305,6 +305,7 @@
                 }
                 if (continuarJogando == 'n' || continuarJogando == 'N')
                 {
+                    //funcao
                     return 0;
                 }
                 else
