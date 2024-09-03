@@ -10,9 +10,9 @@
     // Função para exibir o grid
     void exibirGrid(int grid[SIZE][SIZE])
 {
-
+    printf("\n");
     printf("    ---------------------------------\n");
-    printf("    *              SUDOKU           *\n");
+    printf("    *            SUDOKU             *\n");
     printf("    ---------------------------------\n");
     printf("     ");
     for (int j = 0; j < SIZE; j++) {
@@ -276,26 +276,26 @@ int verificarSudoku(int grid[SIZE][SIZE])
         do
         {
             printf(" Digite a linha a ser alterada (0-8): ");
-            printf("\n -> ");
+            printf("\n\n -> ");
             scanf("%d", &linha);
             printf(" Digite a coluna a ser alterada(0-8): ");
-            printf("\n -> ");
+            printf("\n\n -> ");
             scanf("%d", &coluna);
             
              if (grid[linha][coluna] != EMPTY)
             {
                 grid[linha][coluna] = EMPTY;
                 exibirGrid(grid);
-                printf("\nNumero removido.");
+                printf("\n\n Numero removido.");
             }
             else
             {
-                printf("\n A celula já está vazia. Tente novamente.");
+                printf("\n\n A celula já está vazia. Tente novamente.");
                 continue;
             }
 
-                printf("\n Deseja continuar removendo? (s/n)");
-                printf("\n -> ");
+                printf("\n\n Deseja continuar removendo? (s/n)");
+                printf("\n\n -> ");
                 scanf(" %c", &continuarRemovendo);
                 if(continuarRemovendo == 'n' || continuarRemovendo == 'N'){
                     return 0;
@@ -316,20 +316,20 @@ int verificarSudoku(int grid[SIZE][SIZE])
 
         do
         {
-            printf("Digite a linha (0-8): ");
-            printf("\n -> ");
+            printf("\n Digite a linha (0-8): ");
+            printf("\n\n -> ");
             scanf("%d", &linha);
-            printf("Digite a coluna (0-8): ");
+            printf("\n Digite a coluna (0-8): ");
             printf("\n -> ");
             scanf("%d", &coluna);
-            printf("Digite o numero (1-9): ");
-            printf("\n -> ");
+            printf("\n Digite o numero (1-9): ");
+            printf("\n\n -> ");
             scanf("%d", &num);
 
 
             if (linha < 0 || linha >= SIZE || coluna < 0 || coluna >= SIZE || num < 1 || num > SIZE)
             {
-                printf("Entrada invalida. Tente novamente.\n");
+                printf("\n Entrada invalida. Tente novamente.\n");
                 continue;
             }
 
@@ -347,7 +347,7 @@ int verificarSudoku(int grid[SIZE][SIZE])
             do
             {
                 printf("\n Deseja remover algum numero? (s/n): ");
-                printf("\n -> ");
+                printf("\n\n -> ");
                 scanf(" %c", &removerNum);
 
                 if (removerNum == 's' || removerNum == 'S'){
@@ -365,14 +365,14 @@ int verificarSudoku(int grid[SIZE][SIZE])
 
             do{
                 printf("\n Deseja continuar jogando? (s/n): \n");
-                printf("\n -> ");
+                printf("\n\n -> ");
                 scanf(" %c", &continuarJogando);
                 
                     if (continuarJogando == 'n' || continuarJogando == 'N'){
                     char verificar;
                     
                     printf("\n Deseja verificar o sudoku? ");
-                    printf("\n -> ");
+                    printf("\n\n -> ");
                     scanf(" %c", &verificar);
                     if(verificar == 's' || verificar == 'S'){
                         for(int i = 0; i < SIZE; i++){
@@ -418,7 +418,7 @@ int verificarSudoku(int grid[SIZE][SIZE])
     {
         int escolha = 0;
 
-        printf("\n -> Ola %s! \n\n", nome);
+        printf("\n\n -> Ola %s! \n\n", nome);
         printf(" --------------------------------------\n");
         printf(" ---------------- Menu ----------------\n");
         printf(" *                                    *\n");
@@ -447,16 +447,17 @@ int verificarSudoku(int grid[SIZE][SIZE])
         FILE *file = fopen(RECORDS_FILE, "r");
         if (file == NULL)
         {
-            printf("Não foi possível abrir o arquivo de records.\n");
+            printf("\n Não foi possível abrir o arquivo de records.");
             return;
         }
 
         char nome[100];
         int tempo;
 
-        printf("Ranking atual:\n");
+        printf("\n Ranking atual:");
         while (fscanf(file, "%s %d", nome, &tempo) != EOF)
         {
+            
             printf("%s - %d segundos\n", nome, tempo);
         }
 
@@ -469,7 +470,7 @@ int verificarSudoku(int grid[SIZE][SIZE])
         FILE *file = fopen(RECORDS_FILE, "a");
         if (file == NULL)
         {
-            printf("Não foi possível abrir o arquivo de records.\n");
+            printf("\n Não foi possível abrir o arquivo de records.\n");
             return;
         }
 
@@ -487,7 +488,7 @@ int verificarSudoku(int grid[SIZE][SIZE])
 
         nome = fopen("nome.txt", "w");
         if (nome == NULL) { // Verifica se o arquivo foi aberto com sucesso
-        printf("Erro ao abrir o arquivo.\n");
+        printf("\n Erro ao abrir o arquivo.\n");
         exit(1);
         }  
         printf("\n"); 
@@ -532,13 +533,13 @@ int verificarSudoku(int grid[SIZE][SIZE])
             else if (opcaoMenu == 4)
             {
                 printf(" --------------------------------------\n");
-                printf("*      >>  OBRIGADO POR JOGAR  <<     *\n");
+                printf(" *     >>  OBRIGADO POR JOGAR  <<     *\n");
                 printf(" --------------------------------------\n");
             }
             else
             {   
                 printf(" --------------------------------------\n");
-                printf("*           >> ERRO 404 <<            *\n\n");
+                printf(" *           >> ERRO 404 <<           *\n\n");
                 printf(" --------------------------------------\n");
             }
         }
