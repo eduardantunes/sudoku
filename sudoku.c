@@ -9,39 +9,52 @@
 
     // Função para exibir o grid
     void exibirGrid(int grid[SIZE][SIZE])
-    {
-        printf("\n");
-        printf(" --------------------------------\n");
-                printf(" *           SUDOKU            *\n");
-                printf(" --------------------------------\n");
-        for (int i = 0; i < SIZE; i++)
-        {
-            if (i % SUBGRIDSIZE == 0 && i != 0){   
+{
 
-                printf(" --------------------------------\n");
+    printf("    ---------------------------------\n");
+    printf("    *              SUDOKU           *\n");
+    printf("    ---------------------------------\n");
+    printf("     ");
+    for (int j = 0; j < SIZE; j++) {
+        
+       if (j % SUBGRIDSIZE == 0 && j != 0) {
+                printf(" | ");
             }
-            for (int j = 0; j < SIZE; j++)
+        if (grid[0][j] == EMPTY){
+                printf(" %i ", j);
+            }
+    }
+    printf("\n");
+    printf("    ---------------------------------\n");
+    for (int i = 0; i < SIZE; i++)
+    {
+        if (i % SUBGRIDSIZE == 0 && i != 0) {
+            printf("    ---------------------------------\n");
+        }
+
+        printf(" %d  |", i);  // Exibir número da linha
+
+        for (int j = 0; j < SIZE; j++)
+        {
+            if (j % SUBGRIDSIZE == 0 && j != 0) {
+                printf(" | ");
+            }
+            if (grid[i][j] == EMPTY)
             {
-                if (j % SUBGRIDSIZE == 0 && j != 0)
-                {
-                    printf(" | ");
-                }
-                if (grid[i][j] == EMPTY)
-                {
-                    printf(" . ");
-                }
-                else
-                {
-                    printf(" %d ", grid[i][j]);
-                }
+                printf(" . ");
             }
-            printf("\n");
+            else
+            {
+                printf(" %d ", grid[i][j]);
+            }
         }
         printf("\n");
     }
+    printf("\n");
+}
 
     // Função para verificar se um número pode ser colocado na posição (linha, coluna)
-    int podeColocar(int grid[SIZE][SIZE], int linha, int coluna, int num)
+     int podeColocar(int grid[SIZE][SIZE], int linha, int coluna, int num)
     {
         // Verificar a linha
         for (int i = 0; i < SIZE; i++)
@@ -51,7 +64,6 @@
                 return 0;
             }
         }
-
         // Verificar a coluna
         for (int i = 0; i < SIZE; i++)
         {
@@ -60,7 +72,6 @@
                 return 0;
             }
         }
-
         // Verificar o quadrante 3x3
         int startRow = linha - linha % SUBGRIDSIZE;
         int startCol = coluna - coluna % SUBGRIDSIZE;
@@ -74,7 +85,6 @@
                 }
             }
         }
-
         return 1;
     }
 
@@ -367,19 +377,22 @@ int verificarSudoku(int grid[SIZE][SIZE])
                     if(verificar == 's' || verificar == 'S'){
                         for(int i = 0; i < SIZE; i++){
                             for(int j = 0; j < SIZE; j++){
-                                if(grid[i][coluna] == EMPTY || grid[linha][j] == EMPTY){
-                                    printf("\n Jogo incompleto. Tente Novamente.\n");
-                                    break;
-                                }
                                 if(grid[i][coluna] != EMPTY && grid[linha][j] != EMPTY){
                                     int verificar = verificarSudoku(grid);
                                         if(verificar == 1){
+
                                             printf("\n Sudoku preenchido com sucesso!");
                                             return 1;
-                                        } else {
+
+                                        } else if(grid[i][coluna] == EMPTY || grid[linha][j] == EMPTY){
+
+                                        printf("\n Jogo incompleto. Tente Novamente.\n");
+                                        break;
+
+                                        }else {
                                             printf("\n Sudoku incorreto.");
                                             return 0;
-                                        }                          
+                                        }                       
                                 }
                             }
                         }
@@ -498,11 +511,15 @@ int verificarSudoku(int grid[SIZE][SIZE])
                 level(dif, grid);
                 clock_t start_time = clock();
                 jogar(grid);
-                clock_t end_time = clock();
 
-                int tempo = (int)(end_time - start_time) / CLOCKS_PER_SEC;
-                printf("Seu tempo: %d segundos\n", tempo);
-                records(nick, tempo);
+                int verificar = verificarSudoku(grid);
+                if(verificar == 1 ){
+                   clock_t end_time = clock();
+                    int tempo = (int)(end_time - start_time) / CLOCKS_PER_SEC;
+                    printf("Seu tempo: %d segundos\n", tempo);
+                    records(nick, tempo);
+                }
+                 
             }
             else if (opcaoMenu == 2)
             {
