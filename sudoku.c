@@ -136,18 +136,6 @@
         // Preencher o grid usando backtracking
         resolverSudoku(grid);
 
-        // Remover alguns valores para criar um Sudoku com pistas
-        int numRemovidos = 0;
-        while (numRemovidos < SIZE * SIZE / 2)
-        { // Remover metade das células
-            int linha = rand() % SIZE;
-            int coluna = rand() % SIZE;
-            if (grid[linha][coluna] != EMPTY)
-            {
-                grid[linha][coluna] = EMPTY;
-                numRemovidos++;
-            }
-        }
     }
 
 int verificarSudoku(int grid[SIZE][SIZE])
@@ -241,16 +229,16 @@ int verificarSudoku(int grid[SIZE][SIZE])
         switch (dif)
         {
         case 1:                          // Fácil
-            numPistas = SIZE * SIZE * 2 / 3; // ~67% preenchido
+            numPistas = (int)(SIZE * SIZE) * 0.60; // ~60% preenchido
             break;
         case 2:                              // Médio
-            numPistas = SIZE * SIZE * 2 / 2; // 50% preenchido
+            numPistas = (int)(SIZE * SIZE) * 0.50; // 50% preenchido
             break;
         case 3:                              // Difícil
-            numPistas = SIZE * SIZE * 5 / 6; // ~83% preenchido
+            numPistas = (int)(SIZE * SIZE) * 0.40; // ~40% preenchido
             break;
         default:
-            numPistas = SIZE * SIZE / 2; // Padrão fácil
+            numPistas = (int)(SIZE * SIZE) * 0.60; // Padrão fácil
             break;
         }
 
@@ -276,11 +264,12 @@ int verificarSudoku(int grid[SIZE][SIZE])
         do
         {
             printf(" Digite a linha a ser alterada (0-8): ");
-            printf("\n\n -> ");
+            printf("\n -> ");
             scanf("%d", &linha);
             printf(" Digite a coluna a ser alterada(0-8): ");
-            printf("\n\n -> ");
+            printf("\n -> ");
             scanf("%d", &coluna);
+            coluna--;
             
              if (grid[linha][coluna] != EMPTY)
             {
@@ -316,14 +305,14 @@ int verificarSudoku(int grid[SIZE][SIZE])
 
         do
         {
-            printf("\n Digite a linha (0-8): ");
-            printf("\n\n -> ");
+            printf("Digite a linha (0-8): ");
+            printf("\n -> ");
             scanf("%d", &linha);
-            printf("\n Digite a coluna (0-8): ");
+            printf("Digite a coluna (0-8): ");
             printf("\n -> ");
             scanf("%d", &coluna);
-            printf("\n Digite o numero (1-9): ");
-            printf("\n\n -> ");
+            printf("Digite o numero (1-9): ");
+            printf("\n -> ");
             scanf("%d", &num);
 
 
@@ -498,7 +487,7 @@ int verificarSudoku(int grid[SIZE][SIZE])
         printf(" *                                       *\n");
         printf(" -----------------------------------------\n");
         printf("\n-> ");
-        scanf(" %s", &nick);
+        scanf(" %s", nick);
         fprintf(nome, "%s", nick);
         fclose(nome);
         printf("\n");
