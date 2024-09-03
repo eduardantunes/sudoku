@@ -29,3 +29,10 @@ d 26
 duda 35
 duda 57
 duda 6
+duda 148
+duda 18
+duda 12
+duda 20
+ddu 11
+duda 20
+duda 40
