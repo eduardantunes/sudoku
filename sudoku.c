@@ -357,7 +357,7 @@ int jogar(int grid[SIZE][SIZE])
 
         if (linha < 0 || linha >= SIZE || coluna < 0 || coluna >= SIZE || num < 1 || num > SIZE)
         {
-            printf("\n Entrada invalida. Tente novamente.\n");
+            printf("\n > Entrada invalida. Tente novamente.\n");
             continue;
         }
 
@@ -368,13 +368,13 @@ int jogar(int grid[SIZE][SIZE])
         }
         else
         {
-            printf("\n A celula ja esta preenchida. Tente novamente.\n");
+            printf("\n > A celula ja esta preenchida. Tente novamente.\n");
             continue;
         }
 
         do
         {
-            printf("\n Deseja remover algum numero? (s/n): ");
+            printf("\n  Deseja remover algum numero? (s/n): ");
             printf("\n\n -> ");
             scanf(" %c", &removerNum);
 
@@ -405,7 +405,7 @@ int jogar(int grid[SIZE][SIZE])
             {
                 char verificar;
 
-                printf("\n Deseja verificar o sudoku? ");
+                printf("\n Deseja verificar o sudoku? (s/n)");
                 printf("\n\n -> ");
                 scanf(" %c", &verificar);
                 if (verificar == 's' || verificar == 'S')
@@ -420,18 +420,18 @@ int jogar(int grid[SIZE][SIZE])
                                 if (verificar == 1)
                                 {
 
-                                    printf("\n Sudoku preenchido com sucesso!");
+                                    printf("\n > Sudoku preenchido com sucesso!");
                                     return 1;
                                 }
                                 else if (grid[i][coluna] == EMPTY || grid[linha][j] == EMPTY)
                                 {
 
-                                    printf("\n Jogo incompleto. Tente Novamente.\n");
+                                    printf("\n > Jogo incompleto. Tente Novamente.\n");
                                     break;
                                 }
                                 else
                                 {
-                                    printf("\n Sudoku incorreto.");
+                                    printf("\n > Sudoku incorreto.");
                                     return 0;
                                 }
                             }
@@ -453,7 +453,7 @@ int jogar(int grid[SIZE][SIZE])
             }
             else
             {
-                printf("\n Entrada invalida. Tente novamente.");
+                printf("\n > Entrada invalida. Tente novamente.");
                 continue;
             }
         } while (continuarJogando != 's' && continuarJogando != 'S');
@@ -486,7 +486,7 @@ int menu(char *nome)
 // Função para escolher um jogo (não implementada)
 void escolherJogo()
 {
-    printf("\n Função para escolher um jogo (não implementada).\n");
+    printf("\n > Função para escolher um jogo (não implementada).\n");
 }
 
 // Função para mostrar ranking
@@ -495,7 +495,7 @@ void mostrarRanking()
     FILE *file = fopen("records.txt", "r");
     if (file == NULL)
     {
-        printf("\n Não foi possível abrir o arquivo de records.");
+        printf("\n > Não foi possível abrir o arquivo de records.");
         return;
     }
 
@@ -572,7 +572,7 @@ int main()
 
    FILE *nome = fopen("nome.txt", "r+"); // Abre o arquivo para leitura e escrita
     if (nome == NULL) {
-        printf("\n Erro ao abrir o arquivo.\n");
+        printf("\n > Erro ao abrir o arquivo.\n");
         exit(1);
     }
 
@@ -598,9 +598,9 @@ int main()
         }
 
         if (nomeEncontrado) {
-            printf("\n O nick %s ja existe no arquivo. Tente novamente.\n", nick);
+            printf("\n > O nick %s ja existe no arquivo. Tente novamente.\n", nick);
         } else {
-            printf("\n Ola %s!", nick);
+            printf("\n > Ola %s!", nick);
             fclose(nome);
             break; 
         }
@@ -623,7 +623,7 @@ int main()
             {
                 clock_t end_time = clock();
                 int tempo = (int)(end_time - start_time) / CLOCKS_PER_SEC;
-                printf("Seu tempo: %d segundos\n", tempo);
+                printf("\n > Seu tempo: %d segundos\n", tempo);
                 records(nick, tempo);
             }
         }
