@@ -390,6 +390,7 @@ int jogar(int grid[SIZE][SIZE])
             else
             {
                 printf("\n Caracter invalido. Tente Novamente.");
+                continue;
             }
 
         } while (removerNum == 's' || removerNum == 'S');
@@ -534,7 +535,7 @@ void mostrarRanking()
 
     if (cont == 0)
     { // Verifica se o arquivo está vazio
-        printf("\n | > Essa posicao no ranking aguarda seu nome!");
+        printf("\n | > Jogue uma partida e inicie o ranking!");
     }
     else
     {
@@ -566,25 +567,45 @@ int main()
     int cont = 0;
     srand(time(0)); // Inicializar o gerador de números aleatórios
     char nick[NICK_SIZE];
+    char nomeExistente[NICK_SIZE];
+    int nomeEncontrado = 0;
 
-    FILE *nome = fopen("nome.txt", "a");
-    if (nome == NULL)
-    { // Verifica se o arquivo foi aberto com sucesso
+   FILE *nome = fopen("nome.txt", "r+"); // Abre o arquivo para leitura e escrita
+    if (nome == NULL) {
         printf("\n Erro ao abrir o arquivo.\n");
         exit(1);
     }
-    
-    printf("\n");
-    printf(" -----------------------------------------\n");
-    printf(" *                                       *\n");
-    printf(" *            Insira seu nick            *\n");
-    printf(" *                                       *\n");
-    printf(" -----------------------------------------\n");
-    printf("\n-> ");
-    scanf(" %s", &nick);
-    fprintf(nome, "%s", nick);
 
-    fclose(nome);
+    while (1) { 
+        printf("\n");
+        printf(" -----------------------------------------\n");
+        printf(" *                                       *\n");
+        printf(" *            Insira seu nick            *\n");
+        printf(" *                                       *\n");
+        printf(" -----------------------------------------\n");
+        printf("\n-> ");
+        scanf(" %s", &nick);
+
+        nomeEncontrado = 0; 
+        rewind(nome);
+
+        
+        while (fscanf(nome, "%s", nomeExistente) != EOF) {
+            if (strcmp(nomeExistente, nick) == 0) {
+                nomeEncontrado = 1;
+                break; 
+            }
+        }
+
+        if (nomeEncontrado) {
+            printf("\n O nick %s ja existe no arquivo. Tente novamente.\n", nick);
+        } else {
+            printf("\n Ola %s!", nick);
+            fclose(nome);
+            break; 
+        }
+    }
+    
     printf("\n");
     while (opcaoMenu != 4)
     {
