@@ -645,7 +645,6 @@ int main()
             int verificar = verificarSudoku(grid);
             if (verificar == 1)
             {
-                clock_t end_time = clock();
                 time_t diff = time(NULL) - start;
                 printf("\n > Seu tempo: %ld segundos\n", diff);
                 records(nick, diff);
@@ -662,7 +661,6 @@ int main()
             int verificar = verificarSudoku(grid);
             if (verificar == 1)
             {
-                clock_t end_time = clock();
                 time_t diff = time(NULL) - start;
                 printf("\n > Seu tempo: %ld segundos\n", diff);
                 records(nick, diff);
