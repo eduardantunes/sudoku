@@ -639,16 +639,16 @@ int main()
             dif = dificuldade();
             gerarSudoku(grid);
             level(dif, grid);
-            clock_t start_time = clock();
+            time_t start = time(NULL); 
             jogar(grid);
 
             int verificar = verificarSudoku(grid);
             if (verificar == 1)
             {
                 clock_t end_time = clock();
-                int tempo = (int)(end_time - start_time) / CLOCKS_PER_SEC;
-                printf("\n > Seu tempo: %d segundos\n", tempo);
-                records(nick, tempo);
+                time_t diff = time(NULL) - start;
+                printf("\n > Seu tempo: %ld segundos\n", diff);
+                records(nick, diff);
             }
         }
         else if (opcaoMenu == 2)
@@ -656,16 +656,16 @@ int main()
             escolherJogo(grid);
             dif = dificuldade();
             level(dif, grid);
-            clock_t start_time = clock();
+            time_t start = time(NULL); 
             jogar(grid);
 
             int verificar = verificarSudoku(grid);
             if (verificar == 1)
             {
                 clock_t end_time = clock();
-                int tempo = (int)(end_time - start_time) / CLOCKS_PER_SEC;
-                printf("\n > Seu tempo: %d segundos\n", tempo);
-                records(nick, tempo);
+                time_t diff = time(NULL) - start;
+                printf("\n > Seu tempo: %ld segundos\n", diff);
+                records(nick, diff);
             }
         }
         else if (opcaoMenu == 3)
