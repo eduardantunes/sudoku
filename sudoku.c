@@ -261,8 +261,6 @@ int dificuldade()
 
 void level(int dif, int grid[SIZE][SIZE])
 {
-    gerarSudoku(grid);
-
     int numPistas;
     switch (dif)
     {
@@ -484,10 +482,34 @@ int menu(char *nome)
     return escolha;
 }
 
-// Função para escolher um jogo (não implementada)
-void escolherJogo()
+// Função para escolher um jogo
+void escolherJogo(int grid[SIZE][SIZE])
 {
-    printf("\n > Função para escolher um jogo (não implementada).\n");
+    char nomearquivo[300];
+    FILE *file;
+    scanf("%*c");
+    while (1) {
+        printf("\nEntre com o nome do arquivo onde está seu sudoku:\n");
+        fgets(nomearquivo, sizeof(nomearquivo), stdin);
+        nomearquivo[strcspn(nomearquivo, "\n")] = '\0';
+        file = fopen(nomearquivo, "r");
+        if (file != NULL) {
+            break;
+        }
+        printf("\nArquivo não existe ou não pôde ser aberto, tente novamente.\n");
+    }
+
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            if (fscanf(file, "%d", &grid[i][j]) != 1) {
+                fprintf(stderr, "Erro ao ler dados da matriz no arquivo '%s'.\n", nomearquivo);
+                fclose(file);
+                exit(EXIT_FAILURE);
+            }
+        }
+    }
+
+    fclose(file);
 }
 
 // Função para mostrar ranking
@@ -615,6 +637,7 @@ int main()
         if (opcaoMenu == 1)
         {
             dif = dificuldade();
+            gerarSudoku(grid);
             level(dif, grid);
             clock_t start_time = clock();
             jogar(grid);
@@ -630,7 +653,20 @@ int main()
         }
         else if (opcaoMenu == 2)
         {
-            escolherJogo();
+            escolherJogo(grid);
+            dif = dificuldade();
+            level(dif, grid);
+            clock_t start_time = clock();
+            jogar(grid);
+
+            int verificar = verificarSudoku(grid);
+            if (verificar == 1)
+            {
+                clock_t end_time = clock();
+                int tempo = (int)(end_time - start_time) / CLOCKS_PER_SEC;
+                printf("\n > Seu tempo: %d segundos\n", tempo);
+                records(nick, tempo);
+            }
         }
         else if (opcaoMenu == 3)
         {
