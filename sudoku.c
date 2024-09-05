@@ -8,6 +8,19 @@
 #define SUBGRIDSIZE 3
 #define EMPTY 0
 #define NICK_SIZE 25
+int dicas[SIZE][SIZE];
+
+void salvaDicas(int grid[SIZE][SIZE]){
+    for (int i = 0; i < SIZE; i++)
+    {
+        for (int j = 0; j < SIZE; j++)
+        {
+            dicas[i][j] = grid[i][j];
+        }
+        
+    }
+    
+}
 
 // Função para exibir o grid
 void exibirGrid(int grid[SIZE][SIZE])
@@ -17,17 +30,12 @@ void exibirGrid(int grid[SIZE][SIZE])
     printf("    *            SUDOKU             *\n");
     printf("    ---------------------------------\n");
     printf("     ");
-    for (int j = 0; j < SIZE; j++)
+    for (int j = 1; j <= SIZE; j++)
     {
-
-        if (j % SUBGRIDSIZE == 0 && j != 0)
+        if (j==3||j==6||j==9)
         {
-            printf(" | ");
-        }
-        if (grid[0][j] == EMPTY)
-        {
-            printf(" %i ", j);
-        }
+            printf(" %i    ", j);
+        }else printf(" %i ", j);
     }
     printf("\n");
     printf("    ---------------------------------\n");
@@ -38,7 +46,7 @@ void exibirGrid(int grid[SIZE][SIZE])
             printf("    ---------------------------------\n");
         }
 
-        printf(" %d  |", i); // Exibir número da linha
+        printf(" %d  |", i+1); // Exibir número da linha
 
         for (int j = 0; j < SIZE; j++)
         {
@@ -159,24 +167,12 @@ void gerarSudoku(int grid[SIZE][SIZE])
         for (int j = 0; j < SIZE; j++)
         {
             grid[i][j] = EMPTY;
+            dicas[i][j] = EMPTY;
         }
     }
 
     // Preencher o grid usando backtracking
     resolverSudoku(grid);
-
-    // Remover alguns valores para criar um Sudoku com pistas
-    int numRemovidos = 0;
-    while (numRemovidos < SIZE * SIZE / 2)
-    { // Remover metade das células
-        int linha = rand() % SIZE;
-        int coluna = rand() % SIZE;
-        if (grid[linha][coluna] != EMPTY)
-        {
-            grid[linha][coluna] = EMPTY;
-            numRemovidos++;
-        }
-    }
 }
 
 int verificarSudoku(int grid[SIZE][SIZE])
@@ -296,6 +292,8 @@ void level(int dif, int grid[SIZE][SIZE])
             numRemovidos--;
         }
     }
+
+    salvaDicas(grid);
 }
 // Função pra remover nmrs
 
@@ -305,14 +303,16 @@ int removerNumeros(int grid[SIZE][SIZE])
     char continuarRemovendo;
     do
     {
-        printf(" Digite a linha a ser alterada (0-8): ");
+        printf(" Digite a linha a ser alterada (1-9): ");
         printf("\n\n -> ");
         scanf("%d", &linha);
-        printf(" Digite a coluna a ser alterada(0-8): ");
+        linha--;
+        printf(" Digite a coluna a ser alterada(1-9): ");
         printf("\n\n -> ");
         scanf("%d", &coluna);
+        coluna--;
 
-        if (grid[linha][coluna] != EMPTY)
+        if (grid[linha][coluna] != EMPTY && dicas[linha][coluna]==EMPTY)
         {
             grid[linha][coluna] = EMPTY;
             exibirGrid(grid);
@@ -320,7 +320,7 @@ int removerNumeros(int grid[SIZE][SIZE])
         }
         else
         {
-            printf("\n\n A celula ja esta vazia. Tente novamente.");
+            printf("\n\n A celula ja está vazia ou é uma dica. Tente novamente.");
             continue;
         }
 
@@ -345,12 +345,14 @@ int jogar(int grid[SIZE][SIZE])
 
     do
     {
-        printf("\n Digite a linha (0-8): ");
+        printf("\n Digite a linha (1-9): ");
         printf("\n\n -> ");
         scanf("%d", &linha);
-        printf("\n Digite a coluna (0-8): ");
+        linha--;
+        printf("\n Digite a coluna (1-9): ");
         printf("\n\n -> ");
         scanf("%d", &coluna);
+        coluna--;
         printf("\n Digite o numero (1-9): ");
         printf("\n\n -> ");
         scanf("%d", &num);
@@ -369,7 +371,7 @@ int jogar(int grid[SIZE][SIZE])
         else
         {
             printf("\n > A celula ja esta preenchida. Tente novamente.\n");
-            continue;
+            
         }
 
         do
@@ -466,7 +468,6 @@ int menu(char *nome)
 {
     int escolha = 0;
 
-    printf("\n\n -> Ola %s! \n\n", nome);
     printf(" --------------------------------------\n");
     printf(" ---------------- Menu ----------------\n");
     printf(" *                                    *\n");
@@ -584,7 +585,7 @@ int main()
         printf(" *                                       *\n");
         printf(" -----------------------------------------\n");
         printf("\n-> ");
-        scanf(" %s", &nick);
+        scanf(" %s", nick);
 
         nomeEncontrado = 0; 
         rewind(nome);
